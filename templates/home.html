@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block body %}
+	<h1>Your Homepage</h1>
+	<div>Welcome back! <a href="/signout">signout</a></div>
+
+	<hr />
+
+	<form action="/tweet" method="post">
+		<input name="content" placeholder="got something to say?" type="text">
+		<input type="submit" value="post">
+	</form>
+
+	<hr />
+
+	<div>
+		<h3>Your Tweets</h3>
+
+		{% for tweet in your_tweets %}
+			<div style="margin-bottom: 10px;">
+				<div>{{ tweet[0] }}</div>
+				<div><em>- from <a href="/profile?user_id={{ tweet[2] }}">{{ tweet[1] }}</a> </em></div>
+				
+			</div>
+		{% endfor %}
+	</div>
+
+	<hr />
+
+	<div>
+		<h3>Tweets from people you follow</h3>
+
+		{% for tweet in following_tweets %}
+			<div style="margin-bottom: 10px;">
+				<div>{{ tweet[0] }}</div>
+				<div><em>- from <a href="/profile?user_id={{ tweet[2] }}">{{ tweet[1] }}</a> </em></div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<hr />
+
+	<div>
+		<h3>Tweets from other people</h3>
+
+		{% for tweet in other_tweets %}
+			<div style="margin-bottom: 10px;">
+				<div>{{ tweet[0] }}</div>
+				<div><em>- from <a href="/profile?user_id={{ tweet[2] }}">{{ tweet[1] }}</a> (<a href="/follow?user_id={{ tweet[2] }}">Follow</a>) </em></div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
